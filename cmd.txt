@@ -1,6 +1,9 @@
 util damage
 nohup python ./src/Utils.py --make_cocoformat y --task damage > utils_damage.out &
 
+util part
+nohup python ./src/Utils.py --make_cocoformat y --task part > utils_part.out &
+
 train damage
 nohup python main.py --train train --task damage --label all > train_damage.out &
 eval damage

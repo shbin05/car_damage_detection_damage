@@ -89,8 +89,7 @@ class RemakeCOCOformat():
     def coco_json(self):
         train = self.load_json(self.annotations[0])
         train['images'] = []
-        train['annotations'] = []
-                
+        train['annotations'] = []      
 
         if self.labeling_schme:
             cates = [{"id":i+1, "name":v}for i,v in enumerate(self.labeling_schme)]
@@ -98,8 +97,6 @@ class RemakeCOCOformat():
                 cates.append({"id":len(self.labeling_schme)+1, "name":'etc'})
             train['categories']= cates
                 
-
-        
         train_imgs = [] 
 
         for i in self.annotations:
@@ -108,34 +105,17 @@ class RemakeCOCOformat():
 
             if len(ann_info) != 0:
                 train_imgs.append(i)
-        
-
       
         train = self.rebuilding(train, train_imgs)
         print(len(train['images'])) 
         
-        '''if not os.path.exists("data/datainfo"):
-            os.makedirs("data/datainfo")
+        if not os.path.exists("../data/datainfo"):
+            os.makedirs("../data/datainfo")
             
-        if not os.path.exists("data/result_log"):
-            os.makedirs("data/result_log")
-            
-        if not os.path.exists("data/weight"):
-            os.makedirs("data/weight")
-            
-        if not os.path.exists("data/Dataset/1.원천데이터/damage"):
-            os.makedirs("data/Dataset/1.원천데이터/damage")
-        
-        if not os.path.exists("data/Dataset/1.원천데이터/damage_part"):
-            os.makedirs("data/Dataset/1.원천데이터/damage_part")
-        
-        if not os.path.exists("data/Dataset/2.라벨링데이터/damage"):
-            os.makedirs("data/Dataset/2.라벨링데이터/damage")
-        
-        if not os.path.exists("data/Dataset/2.라벨링데이터/damage_part"):
-            os.makedirs("data/Dataset/2.라벨링데이터/damage_part")'''
+        if not os.path.exists("../data/weight"):
+            os.makedirs("../data/weight")
 
-        self.save_json(train, os.path.join("../data/datainfo" ,self.train_fn + ".json"))
+        self.save_json(train, os.path.join("data/datainfo" ,self.train_fn + ".json"))
         
 
 
@@ -258,13 +238,13 @@ if __name__ == "__main__":
             #####
 
 
-            tmp = RemakeCOCOformat(img_dir = '../data/custom/train', ann_dir = '../data/custom/train', alis= f'part_train', ratio=0.1, labeling_schme=l_sch, task='part')
+            '''tmp = RemakeCOCOformat(img_dir = '../data/custom/train', ann_dir = '../data/custom/train', alis= f'part_train', ratio=0.1, labeling_schme=l_sch, task='part')
             tmp.coco_json() 
 
             tmp = RemakeCOCOformat(img_dir = '../data/custom/val', ann_dir = '../data/custom/val', alis= f'part_val', ratio=0.1, labeling_schme=l_sch, task='part')
-            tmp.coco_json() 
+            tmp.coco_json() '''
 
-            tmp = RemakeCOCOformat(img_dir = '../data/custom/test', ann_dir = '../data/custom/test', alis= f'part_test', ratio=0.1, labeling_schme=l_sch, task='part')
+            tmp = RemakeCOCOformat(img_dir = 'data/custom/test/img', ann_dir = 'data/custom/test/json', alis= f'part_test', ratio=0.1, labeling_schme=l_sch, task='part')
             tmp.coco_json() 
 
             print('Done part')
@@ -292,9 +272,9 @@ if __name__ == "__main__":
             #     test = RemakeCOCOformat(img_dir = dir_name_img, ann_dir = dir_name_label, data_lst = tmp, alis=f'damage_{l}_train', ratio=0., labeling_schme=l_sch, task='damage')
             #     test.coco_json()
             
-            for i in range(4):
+            '''for i in range(4):
                 test = RemakeCOCOformat(img_dir = f'../data/custom/train/{l_sch[i]}/img', ann_dir = f'../data/custom/train/{l_sch[i]}/json', alis= f'damage_{l_sch[i]}_train', ratio=0., labeling_schme=l_sch, task='damage')
-                test.coco_json()
+                test.coco_json()'''
                 
             # test, val
             # for dt in ['val','test']:
@@ -302,8 +282,8 @@ if __name__ == "__main__":
             #     test = RemakeCOCOformat(img_dir = dir_name_img, ann_dir = dir_name_label, data_lst = tmp, alis=f'damage_{dt}', ratio=0, labeling_schme=l_sch, task='damage')
             #     test.coco_json()
             
-            test = RemakeCOCOformat(img_dir = f'../data/custom/val/img', ann_dir = f'../data/custom/val/json', alis= f'damage_val', ratio=0., labeling_schme=l_sch, task='damage')
-            test.coco_json()
+            '''test = RemakeCOCOformat(img_dir = f'../data/custom/val/img', ann_dir = f'../data/custom/val/json', alis= f'damage_val', ratio=0., labeling_schme=l_sch, task='damage')
+            test.coco_json()'''
             
             test = RemakeCOCOformat(img_dir = f'../data/custom/test/img', ann_dir = f'../data/custom/test/json', alis= f'damage_test', ratio=0., labeling_schme=l_sch, task='damage')
             test.coco_json()

@@ -7,6 +7,8 @@ import glob
 from torch.utils.data import Dataset
 import torch
 import cv2
+from PIL import Image
+from torchvision.transforms import ToTensor
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -47,7 +49,6 @@ class Datasets(Dataset):
         # load image
         images = cv2.imread(os.path.join(self.img_base_path, image_infos['file_name']))
         images = cv2.cvtColor(images, cv2.COLOR_BGR2RGB) # w * h * c
-
 
         # load label
         if self.mode in ("train","val"):
@@ -95,6 +96,10 @@ class Datasets(Dataset):
 
         images = images/255.
         images = images.transpose([2,0,1]) 
+
+        #tf_toTensor = ToTensor()
+        #images = tf_toTensor(images).float().to(DEVICE)
+
         # if not(self.one_channel):
             # masks = masks.transpose([2,0,1]) # n_cls * w * h
         # images, masks = torch.tenor(images).float(), torch.tensor(masks).long()
